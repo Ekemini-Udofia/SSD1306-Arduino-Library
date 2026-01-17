@@ -70,8 +70,25 @@ void set_power_state(bool on) {
   }
 }
 
-// Low level Sned
-bool display_send_data(const uint8_t data, size_t length);
+// Low level Send
+bool display_send_data(const uint8_t *data, size_t length) {
+  size_t offset = 0;
+
+  while (offset < length) {
+    Wire.beginTransmission(OLED_ADDR);
+    Wire.write(0x40);  // Data control byte
+
+    size_t chunk = min((size_t)31, length - offset);
+
+    for (size_t i = 0; i < chunk; i++) Wire.write(data[offset + i]);
+
+    if (Wire.endTransmission() != 0) return false;
+
+    offset += chunk;
+  }
+
+  return true;
+}
 
 bool display_send_command(uint8_t command) {
   Wire.beginTransmission(OLED_ADDR);
