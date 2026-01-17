@@ -18,8 +18,8 @@ bool display_init(void);
 void set_power_state(bool on);
 
 // Low level Sned 
-void display_send_data(const uint8_t data, size_t length);
-void display_send_command(uint8_t command);
+bool display_send_data(const uint8_t data, size_t length);
+bool display_send_command(uint8_t command);
 
 // Buffer Management
 void display_clear_buffer(void);

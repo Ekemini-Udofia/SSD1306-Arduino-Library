@@ -3,61 +3,61 @@
 // Initialization
 bool display_init(void) {
   // Ensure display is off while configuring
-  display_send_command(SSD1306_DISPLAYOFF);
+  if (!display_send_command(SSD1306_DISPLAYOFF)) return false;
 
   // Set display clock divide ratio and oscillator frequency
-  display_send_command(SSD1306_SETDISPLAYCLOCKDIV);
-  display_send_command(0x80);  // Recommended default
+  if (!display_send_command(SSD1306_SETDISPLAYCLOCKDIV)) return false;
+  if (!display_send_command(0x80)) return false;  // Recommended default
 
   // Set multiplex ratio for 128x64 panel
-  display_send_command(SSD1306_SETMULTIPLEX);
-  display_send_command(0x3F);  // 64 - 1
+  if (!display_send_command(SSD1306_SETMULTIPLEX)) return false;
+  if (!display_send_command(0x3F)) return false;  // 64 - 1
 
   // No display offset
-  display_send_command(SSD1306_SETDISPLAYOFFSET);
-  display_send_command(0x00);
+  if (!display_send_command(SSD1306_SETDISPLAYOFFSET)) return false;
+  if (!display_send_command(0x00)) return false;
 
   // Map RAM line 0 to display line 0
-  display_send_command(SSD1306_SETSTARTLINE | 0x00);
+  if (!display_send_command(SSD1306_SETSTARTLINE | 0x00)) return false;
 
   // Enable internal charge pump (required for 3.3V operation)
-  display_send_command(SSD1306_CHARGEPUMP);
-  display_send_command(0x14);
+  if (!display_send_command(SSD1306_CHARGEPUMP)) return false;
+  if (!display_send_command(0x14)) return false;
 
   // Set memory addressing mode to horizontal
-  display_send_command(SSD1306_MEMORYMODE);
-  display_send_command(0x00);
+  if (!display_send_command(SSD1306_MEMORYMODE)) return false;
+  if (!display_send_command(0x00)) return false;
 
   // Mirror segments for correct left-to-right orientation
-  display_send_command(SSD1306_SEGREMAP | 0x01);
+  if (!display_send_command(SSD1306_SEGREMAP | 0x01)) return false;
 
   // Scan COM pins from high to low (fix vertical orientation)
-  display_send_command(SSD1306_COMSCANDEC);
+  if (!display_send_command(SSD1306_COMSCANDEC)) return false;
 
   // Set COM pin hardware configuration for 128x64
-  display_send_command(SSD1306_SETCOMPINS);
-  display_send_command(0x12);
+  if (!display_send_command(SSD1306_SETCOMPINS)) return false;
+  if (!display_send_command(0x12)) return false;
 
   // Set contrast control
-  display_send_command(SSD1306_SETCONTRAST);
-  display_send_command(0xCF);
+  if (!display_send_command(SSD1306_SETCONTRAST)) return false;
+  if (!display_send_command(0xCF)) return false;
 
   // Set pre-charge period
-  display_send_command(SSD1306_SETPRECHARGE);
-  display_send_command(0xF1);
+  if (!display_send_command(SSD1306_SETPRECHARGE)) return false;
+  if (!display_send_command(0xF1)) return false;
 
   // Set VCOMH deselect level
-  display_send_command(SSD1306_SETVCOMDETECT);
-  display_send_command(0x40);
+  if (!display_send_command(SSD1306_SETVCOMDETECT)) return false;
+  if (!display_send_command(0x40)) return false;
 
   // Resume display from RAM content
-  display_send_command(SSD1306_DISPLAYALLON_RESUME);
+  if (!display_send_command(SSD1306_DISPLAYALLON_RESUME)) return false;
 
   // Set normal (non-inverted) display mode
-  display_send_command(SSD1306_NORMALDISPLAY);
+  if (!display_send_command(SSD1306_NORMALDISPLAY)) return false;
 
   // Turn display on
-  display_send_command(SSD1306_DISPLAYON);
+  if (!display_send_command(SSD1306_DISPLAYON)) return false;
 }
 
 void set_power_state(bool on) {
@@ -71,9 +71,9 @@ void set_power_state(bool on) {
 }
 
 // Low level Sned
-void display_send_data(const uint8_t data, size_t length);
+bool display_send_data(const uint8_t data, size_t length);
 
-void display_send_command(uint8_t command) {
+bool display_send_command(uint8_t command) {
   Wire.beginTransmission(OLED_ADDR);
 
   // Control byte: Co = 0, D/C# = 0 → following byte is a command
@@ -82,7 +82,7 @@ void display_send_command(uint8_t command) {
   // SSD1306 command byte
   Wire.write(command);
 
-  Wire.endTransmission();
+  return (Wire.endTransmission() == 0);
 }
 
 // Buffer Management
