@@ -1,5 +1,5 @@
-#ifndef SRC_HEADERS_H_
-#define SRC_HEADERS_H_
+#ifndef SRC_HEADERS_HPP_
+#define SRC_HEADERS_HPP_
 
 #define SSD1306_MEMORYMODE 0x20          ///< See datasheet
 #define SSD1306_COLUMNADDR 0x21          ///< See datasheet
@@ -37,8 +37,5 @@
 #define SSD1306_ACTIVATE_SCROLL 0x2F                      ///< Start scroll
 #define SSD1306_SET_VERTICAL_SCROLL_AREA 0xA3             ///< Set scroll range
 
-#define SSD1306_LCDWIDTH 128 ///< DEPRECATED: width w/SSD1306_128_64 defined
-#define SSD1306_LCDHEIGHT 64 ///< DEPRECATED: height w/SSD1306_128_64 defined
 
-
-#endif // SRC_HEADERS_H_
+#endif // SRC_HEADERS_HPP_
