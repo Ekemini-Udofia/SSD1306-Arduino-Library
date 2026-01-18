@@ -2,7 +2,7 @@
 #define SSD1306_LIB_HPP_
 
 #include "headers.hpp"
-#include <stdint>
+#include <stdint.h>
 #include <Arduino.h>
 #include <Wire.h>
 
