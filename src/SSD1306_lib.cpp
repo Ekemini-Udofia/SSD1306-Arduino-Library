@@ -70,6 +70,9 @@ void set_power_state(bool on) {
   }
 }
 
+// Update display from buffer
+bool display_update(void);
+
 // Low level Send
 bool display_send_data(const uint8_t *data, size_t length) {
   size_t offset = 0;
@@ -103,7 +106,9 @@ bool display_send_command(uint8_t command) {
 }
 
 // Buffer Management
-void display_clear_buffer(void);
+void display_clear_buffer(void) {
+  memset(display_buffer, 0x00, DISPLAY_BUFFER_SIZE);
+}
 void display_fill_buffer(uint8_t pattern);
 
 // Pixel Drawing
