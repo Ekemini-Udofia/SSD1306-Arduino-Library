@@ -71,7 +71,22 @@ void set_power_state(bool on) {
 }
 
 // Update display from buffer
-bool display_update(void);
+bool display_update(void)
+{
+    // Set column address range: 0 to 127
+    if (!display_send_command(SSD1306_COLUMNADDR)) return false;
+    if (!display_send_command(0x00)) return false;
+    if (!display_send_command(DISPLAY_WIDTH - 1)) return false;
+
+    // Set page address range: 0 to 7 (64px / 8)
+    if (!display_send_command(SSD1306_PAGEADDR)) return false;
+    if (!display_send_command(0x00)) return false;
+    if (!display_send_command((DISPLAY_HEIGHT / 8) - 1)) return false;
+
+    // Send framebuffer to GDDRAM
+    return display_send_data(display_buffer, DISPLAY_BUFFER_SIZE);
+}
+
 
 // Low level Send
 bool display_send_data(const uint8_t *data, size_t length) {
