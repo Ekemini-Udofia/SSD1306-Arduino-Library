@@ -64,7 +64,7 @@ bool display_init(void) {
 }
 
 void set_power_state(bool on) {
-  if (on) {-
+  if (on) {
     // Turn display on
     display_send_command(SSD1306_DISPLAYON);
   } else {
