@@ -288,7 +288,7 @@ void display_draw_vline(uint8_t x, uint8_t y, uint8_t w, bool colour) {
   if (x >= DISPLAY_WIDTH)
     return;
 
-  for (uint8_t i = 0; i < h; i++)
+  for (uint8_t i = 0; i < w; i++)
     display_set_pixel(x, y + i, colour);
 }
 
@@ -310,11 +310,11 @@ void display_fill_rect(uint8_t x, uint8_t y, uint8_t w, uint8_t h, bool colour) 
 // Text - To Implement Later
 // void display_draw_bitmap(const uint8_t *bitmap, uint8_t w, uint8_t h, uint8_t
 // x, uint8_t y, bool color);
-void display_draw_char(char c, uint8_t x, uint8_t y, const uint8_t *font,
-                       uint8_t font_w, uint8_t font_h, bool color);
-void display_draw_string(const char *str, uint8_t x, uint8_t y,
-                         const uint8_t *font, uint8_t font_w, uint8_t font_h,
-                         bool color);
+// void display_draw_char(char c, uint8_t x, uint8_t y, const uint8_t *font,
+//                        uint8_t font_w, uint8_t font_h, bool color);
+// void display_draw_string(const char *str, uint8_t x, uint8_t y,
+//                          const uint8_t *font, uint8_t font_w, uint8_t font_h,
+//                          bool color);
 
 // Display Control
 /*
