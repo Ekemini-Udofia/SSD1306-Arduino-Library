@@ -11,7 +11,7 @@
 #define DISPLAY_BUFFER_SIZE ((DISPLAY_WIDTH * DISPLAY_HEIGHT) / 8)
 #define OLED_ADDR 0X3C
 
-uint8_t display_buffer[DISPLAY_BUFFER_SIZE];
+extern uint8_t display_buffer[DISPLAY_BUFFER_SIZE];
 
 // Initialization
 bool display_init(void);

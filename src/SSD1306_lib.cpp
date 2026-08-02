@@ -1,5 +1,7 @@
 #include "SSD1306_lib.hpp"
 
+uint8_t display_buffer[DISPLAY_BUFFER_SIZE]; 
+
 // Initialization
 bool display_init(void) {
   // Ensure display is off while configuring
