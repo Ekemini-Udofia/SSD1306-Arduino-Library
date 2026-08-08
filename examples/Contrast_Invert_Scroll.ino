@@ -1,4 +1,4 @@
-#include "ssd1306_lib.hpp"
+#include "SSD1306_lib.hpp"
 
 void setup() {
   Wire.begin();
